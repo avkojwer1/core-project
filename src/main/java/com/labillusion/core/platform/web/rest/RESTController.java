@@ -18,11 +18,12 @@ public class RESTController {
     @Autowired
     protected ErrorResponseBuilder errorResponseBuilder;
 
-    @ExceptionHandler
+    @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    public ErrorResponse error(Throwable e) {
+    public ErrorResponse error(RuntimeException e) {
         return errorResponseBuilder.createErrorResponse(e);
     }
+
 
 }
