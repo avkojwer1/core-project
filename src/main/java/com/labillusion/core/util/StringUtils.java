@@ -10,7 +10,7 @@ public final class StringUtils {
             return false;
 
         for(int i=0; i < text.length(); i++){
-            if(Character.isWhitespace(text.charAt(i)))
+            if(!Character.isWhitespace(text.charAt(i)))
                 return true;
         }
 
