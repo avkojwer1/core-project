@@ -101,17 +101,21 @@
         </dependency>
 
 
-        <!-- Logging -->
+        <!-- LogBack dependencies -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j-version}</version>
         </dependency>
-        <!-- LogBack dependencies -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
+            <version>0.1.2</version>
         </dependency>
 
         <!-- Spring自动处理JSON -->
