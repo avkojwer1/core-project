@@ -5,13 +5,7 @@ package com.labillusion.core.platform.runtime;
  */
 public class RuntimeSettings {
 
-    private static final RuntimeSettings INSTANCE = new RuntimeSettings();
-
-    public static RuntimeSettings get() {
-        return INSTANCE;
-    }
-
-    private RuntimeEnvironment environment = RuntimeEnvironment.DEV;
+    private RuntimeEnvironment environment;
 
     public RuntimeEnvironment getEnvironment() {
         return environment;
