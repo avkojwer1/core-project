@@ -121,7 +121,11 @@
             <artifactId>mybatis-ehcache</artifactId>
             <version>${mybatis-ehcache-version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache-version}</version>
+        </dependency>
 
         <!-- 数据源配置 -->
         <dependency>
