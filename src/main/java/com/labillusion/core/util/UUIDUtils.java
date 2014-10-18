@@ -64,7 +64,7 @@ public class UUIDUtils {
 			leastSigBits = (leastSigBits << 8) | (randomBytes[i] & 0xff);
 		}
 
-		return new UUID(mostSigBits, leastSigBits).toString().replaceAll("-", "");
+		return new UUID(mostSigBits, leastSigBits).toString().replaceAll("-", "").toUpperCase();
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class UUIDUtils {
 		// time hi and version
 		mostSigBits |= 0x1000 | ((timeMillis >> 48) & 0x0FFF); // version 1
 
-		return new UUID(mostSigBits, leastSigBits).toString().replaceAll("-", "");
+		return new UUID(mostSigBits, leastSigBits).toString().replaceAll("-", "").toUpperCase();
 	}
 
 }
