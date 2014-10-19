@@ -1,7 +1,8 @@
-package com.labillusion.core.database.base.mybatis.impl;
+package com.labillusion.core.database.base.mybatis.dao.impl;
 
-import com.labillusion.core.database.base.mybatis.BaseDao;
+
 import com.labillusion.core.database.base.mybatis.constants.SqlId;
+import com.labillusion.core.database.base.mybatis.dao.BaseDao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 

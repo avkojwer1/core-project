@@ -1,4 +1,4 @@
-package com.labillusion.core.database.base.mybatis;
+package com.labillusion.core.database.base.mybatis.dao;
 
 import java.util.List;
 import java.util.Map;
