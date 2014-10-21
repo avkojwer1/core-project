@@ -1,6 +1,7 @@
 package com.labillusion.core.platform.web.rest;
 
 import com.labillusion.core.platform.exception.ResourceNotFoundException;
+import com.labillusion.core.platform.exception.SessionTimeOutException;
 import com.labillusion.core.platform.exception.UserAuthorizationException;
 import com.labillusion.core.platform.web.rest.exception.ErrorResponse;
 import com.labillusion.core.platform.web.rest.exception.ErrorResponseBuilder;
@@ -70,4 +71,12 @@ public class RESTController {
         }
         return response;
     }
+
+    @ExceptionHandler(value=SessionTimeOutException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorResponse sessionTimeOut(SessionTimeOutException ex){
+        return errorResponseBuilder.createErrorResponse(ex);
+    }
+
 }
