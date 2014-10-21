@@ -49,7 +49,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T selectOne(Map<String, Object> query) {
-        return null;
+        return (T)sqlSessionTemplate.selectOne(getSqlName(SqlId.SQL_SELECT), query);
     }
 
     @Override
@@ -74,6 +74,6 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public int update(T entity) {
-        return 0;
+        return sqlSessionTemplate.update(getSqlName(SqlId.SQL_UPDATE_BY_ID), entity);
     }
 }

@@ -43,7 +43,7 @@ public class RESTController {
     }
 
     @ExceptionHandler(value=UserAuthorizationException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorResponse unauthorized(UserAuthorizationException ex){
         return errorResponseBuilder.createErrorResponse(ex);
