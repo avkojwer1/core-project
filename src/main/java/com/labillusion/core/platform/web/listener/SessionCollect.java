@@ -1,9 +1,11 @@
 package com.labillusion.core.platform.web.listener;
 
+import com.labillusion.core.util.StringUtils;
 import org.apache.catalina.SessionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -16,6 +18,7 @@ import java.util.Map;
  */
 public class SessionCollect implements HttpSessionListener {
     private static final Logger logger = LoggerFactory.getLogger(SessionCollect.class);
+    public static final String SESSION_ID = "Session-Id";
 
     private static final Map<String, HttpSession> sessions = new HashMap<String, HttpSession>();
 
@@ -36,4 +39,10 @@ public class SessionCollect implements HttpSessionListener {
         return sessions.get(sessionId);
     }
 
+    public static HttpSession find(HttpServletRequest request) {
+        String sessionId = request.getHeader(SESSION_ID);
+        if(!StringUtils.hasText(sessionId))
+            return null;
+        return sessions.get(sessionId);
+    }
 }

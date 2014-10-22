@@ -117,7 +117,7 @@ public class RESTServiceClient {
         logger.debug("received response, statusCode={}, elapsed={}", response.getStatusLine().getStatusCode(), stopWatch.elapsedTime());
 
         request.releaseConnection();
-        return null;
+        return JSONBinder.binder(responseClass).fromJSON(new String(content, "UTF-8"));
     }
     /**
      * 写入请求头
