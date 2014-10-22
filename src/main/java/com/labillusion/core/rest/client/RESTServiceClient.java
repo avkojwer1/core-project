@@ -4,9 +4,7 @@ import com.labillusion.core.platform.json.JSONBinder;
 import com.labillusion.core.util.StopWatch;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -55,7 +53,7 @@ public class RESTServiceClient {
 
     public <T, U> T post(String uri, Class<T> responseClass, U requestObj) throws IOException {
         StopWatch stopWatch = new StopWatch();
-        logger.debug("send request, url={}, method={}", uri, "Get");
+        logger.debug("send request, url={}, method={}", uri, "Post");
         logger.debug("====== http request begin ======");
 
         String body = JSONBinder.binder((Class<U>) requestObj.getClass()).toJSON(requestObj);
@@ -77,6 +75,50 @@ public class RESTServiceClient {
         return JSONBinder.binder(responseClass).fromJSON(new String(content, "UTF-8"));
     }
 
+    @SuppressWarnings("unchecked")
+    public <T, U> T put(String uri, Class<T> responseClass, U requestObj) throws IOException {
+        StopWatch stopWatch = new StopWatch();
+        logger.debug("send request, url={}, method={}", uri, "Put");
+        logger.debug("====== http request begin ======");
+
+        String body = JSONBinder.binder((Class<U>) requestObj.getClass()).toJSON(requestObj);
+        AbstractHttpEntity entity = new StringEntity(body, CHARSET_UTF_8);
+        HttpPut put = new HttpPut(uri);
+        put.setEntity(entity);
+
+        HttpResponse response =createDefaultHttpClient().execute(put);
+        int responseCode = response.getStatusLine().getStatusCode();
+        validateStatusCode(responseCode);
+        byte[] content = EntityUtils.toByteArray(response.getEntity());
+
+        logger.debug("====== http request end ======");
+        logger.debug("received response, statusCode={}, elapsed={}", response.getStatusLine().getStatusCode(), stopWatch.elapsedTime());
+
+        put.releaseConnection();
+
+        return JSONBinder.binder(responseClass).fromJSON(new String(content, "UTF-8"));
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T, U> T delete(String uri, Class<T> responseClass) throws IOException {
+        StopWatch stopWatch = new StopWatch();
+        logger.debug("send request, url={}, method={}", uri, "Delete");
+        logger.debug("====== http request begin ======");
+
+        HttpRequestBase request = new HttpDelete(uri);
+        prepareHeaders(request);
+        HttpResponse response =createDefaultHttpClient().execute(request);
+
+        int responseCode = response.getStatusLine().getStatusCode();
+        validateStatusCode(responseCode);
+        byte[] content = EntityUtils.toByteArray(response.getEntity());
+
+        logger.debug("====== http request end ======");
+        logger.debug("received response, statusCode={}, elapsed={}", response.getStatusLine().getStatusCode(), stopWatch.elapsedTime());
+
+        request.releaseConnection();
+        return null;
+    }
     /**
      * 写入请求头
      * @param request
