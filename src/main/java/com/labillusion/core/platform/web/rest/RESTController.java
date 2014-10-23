@@ -3,10 +3,7 @@ package com.labillusion.core.platform.web.rest;
 import com.labillusion.core.platform.exception.ResourceNotFoundException;
 import com.labillusion.core.platform.exception.SessionTimeOutException;
 import com.labillusion.core.platform.exception.UserAuthorizationException;
-import com.labillusion.core.platform.web.rest.exception.ErrorResponse;
-import com.labillusion.core.platform.web.rest.exception.ErrorResponseBuilder;
-import com.labillusion.core.platform.web.rest.exception.FieldError;
-import com.labillusion.core.platform.web.rest.exception.ValidationErrorResponse;
+import com.labillusion.core.platform.web.rest.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -50,6 +47,17 @@ public class RESTController {
         return errorResponseBuilder.createErrorResponse(ex);
     }
 
+    @ExceptionHandler(InvalidRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ValidationErrorResponse validationError(InvalidRequestException e) {
+        ValidationErrorResponse response = new ValidationErrorResponse();
+        FieldError error = new FieldError();
+        error.setField(e.getField());
+        error.setMessage(e.getMessage());
+        response.getFieldErrors().add(error);
+        return response;
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
