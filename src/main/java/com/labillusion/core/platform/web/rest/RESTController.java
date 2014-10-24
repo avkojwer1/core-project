@@ -74,7 +74,7 @@ public class RESTController {
         for (org.springframework.validation.FieldError fieldError : fieldErrors) {
             FieldError error = new FieldError();
             error.setField(fieldError.getField());
-            error.setMessage(fieldError.toString());
+            error.setMessage(fieldError.getDefaultMessage());
             response.getFieldErrors().add(error);
         }
         return response;
