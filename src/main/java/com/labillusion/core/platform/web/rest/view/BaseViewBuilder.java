@@ -32,14 +32,26 @@ public class BaseViewBuilder<S,T> {
         Method[] methods = this.target.getMethods();
         for(Method method : methods){
             if(isSetter(method)){
-                Method getMethod = this.source.getMethod(method.getName().replace("set","get"));
+                String methodName = method.getName().replace("set","get");
 
-                method.invoke(obj, getMethod.invoke(t));
+                if(!hasMethodInSource(this.source.getMethods(), methodName))
+                    continue;
+                Method getMethod = this.source.getMethod(methodName);
+                if(getMethod != null)
+                    method.invoke(obj, getMethod.invoke(t));
             }
         }
         return (T) obj;
     }
 
+    public static boolean hasMethodInSource(Method[] methods, String name){
+        for (Method m: methods){
+            if(name.equals(m.getName()))
+                return true;
+        }
+
+        return false;
+    }
 
     public static boolean isSetter(Method method){
         if(!method.getName().startsWith("set")) return false;
