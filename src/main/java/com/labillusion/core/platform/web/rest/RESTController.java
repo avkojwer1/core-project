@@ -4,6 +4,7 @@ import com.labillusion.core.platform.exception.ResourceNotFoundException;
 import com.labillusion.core.platform.exception.SessionTimeOutException;
 import com.labillusion.core.platform.exception.UserAuthorizationException;
 import com.labillusion.core.platform.web.rest.exception.*;
+import com.labillusion.core.util.MessageSourceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,8 @@ public class RESTController {
 
     @Autowired
     protected ErrorResponseBuilder errorResponseBuilder;
+
+    protected MessageSourceUtils resources;
 
     @ExceptionHandler(value = Throwable.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
