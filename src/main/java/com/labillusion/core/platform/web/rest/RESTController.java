@@ -26,7 +26,7 @@ public class RESTController {
 
     @Autowired
     protected ErrorResponseBuilder errorResponseBuilder;
-
+    @Autowired
     protected MessageSourceUtils resources;
 
     @ExceptionHandler(value = Throwable.class)
