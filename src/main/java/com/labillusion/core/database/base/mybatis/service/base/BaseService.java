@@ -9,6 +9,8 @@ import java.util.Map;
 public interface BaseService<T> {
     public List<T> selectList(Map<String, Object> query);
 
+    List<T> selectList();
+
     public T selectOne(Map<String, Object> query);
 
     public T selectById(String id);

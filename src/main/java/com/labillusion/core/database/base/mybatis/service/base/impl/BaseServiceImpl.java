@@ -26,6 +26,11 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List<T> selectList() {
+        return getBaseDao().selectList(null);
+    }
+
+    @Override
     public T selectOne(Map<String, Object> query) {
         return getBaseDao().selectOne(query);
     }
